@@ -14,3 +14,9 @@ pub struct Enemy;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct MovingRandomly;
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Health {
+    pub max: i32,
+    pub current: i32,
+}

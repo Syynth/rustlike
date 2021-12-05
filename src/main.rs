@@ -15,7 +15,7 @@ mod prelude {
     pub const SCREEN_WIDTH: i32 = 80;
     pub const SCREEN_HEIGHT: i32 = 50;
 
-    pub const ZOOM_LEVEL: i32 = 2;
+    pub const ZOOM_LEVEL: i32 = 4;
 
     pub const DISPLAY_WIDTH: i32 = SCREEN_WIDTH / (ZOOM_LEVEL);
     pub const DISPLAY_HEIGHT: i32 = SCREEN_HEIGHT / ZOOM_LEVEL;
@@ -72,6 +72,8 @@ impl GameState for State {
         ctx.cls();
         ctx.set_active_console(1);
         ctx.cls();
+        ctx.set_active_console(2);
+        ctx.cls();
 
         self.resources.insert(ctx.key);
 
@@ -103,8 +105,10 @@ fn main() -> BError {
         .with_tile_dimensions(16 * ZOOM_LEVEL, 16 * ZOOM_LEVEL)
         .with_resource_path("resources/")
         .with_font("dungeonfont.png", 32, 32)
+        .with_font("terminal8x8.png", 8, 8)
         .with_simple_console(DISPLAY_WIDTH, DISPLAY_HEIGHT, "dungeonfont.png")
         .with_simple_console_no_bg(DISPLAY_WIDTH, DISPLAY_HEIGHT, "dungeonfont.png")
+        .with_simple_console_no_bg(SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, "terminal8x8.png")
         .build()?;
 
     main_loop(context, State::new())
