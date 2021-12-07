@@ -30,3 +30,9 @@ pub struct WantsToMove {
 // #[repr(transparent)]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Name(pub String);
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct WantsToAttack {
+    pub attacker: Entity,
+    pub target: Entity,
+}

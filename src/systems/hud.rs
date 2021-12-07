@@ -1,5 +1,4 @@
 use crate::prelude::*;
-use crate::VirtualKeyCode::B;
 
 #[system]
 #[read_component(Health)]
@@ -11,12 +10,12 @@ pub fn hud(ecs: &SubWorld) {
     let mut draw_batch = DrawBatch::new();
     draw_batch.target(2);
     draw_batch.print_centered(
-        2,
+        3,
         "Explore the dungeon. WASD/Cursor keys to move. Press 'e' to interact.",
     );
 
     draw_batch.bar_horizontal(
-        Point::zero(),
+        Point::new(0, 1),
         SCREEN_WIDTH * 2,
         player_health.current,
         player_health.max,
@@ -24,7 +23,7 @@ pub fn hud(ecs: &SubWorld) {
     );
 
     draw_batch.print_color_centered(
-        0,
+        1,
         format!(" Health: {}/{}", player_health.current, player_health.max),
         ColorPair::new(WHITE, RED),
     );
