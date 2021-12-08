@@ -3,6 +3,8 @@ use crate::prelude::*;
 #[system]
 #[write_component(Point)]
 #[read_component(Player)]
+#[write_component(Health)]
+#[read_component(Enemy)]
 pub fn player_input(
     ecs: &mut SubWorld,
     commands: &mut CommandBuffer,
@@ -32,7 +34,6 @@ pub fn player_input(
                 .filter(|(_, pos)| **pos == destination)
                 .for_each(|(entity, _)| {
                     hit_something = true;
-                    println!("Enemy hit!");
                     commands.push((
                         (),
                         WantsToAttack {
@@ -53,6 +54,13 @@ pub fn player_input(
 
             *turn_state = TurnState::PlayerTurn;
         } else if key == VirtualKeyCode::Space {
+            if let Ok(mut health) = ecs
+                .entry_mut(player_entity)
+                .unwrap()
+                .get_component_mut::<Health>()
+            {
+                health.current = i32::min(health.max, health.current + 1);
+            }
             *turn_state = TurnState::PlayerTurn;
         }
     }
